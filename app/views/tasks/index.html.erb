@@ -1,0 +1,22 @@
+<h1 class="mb-4">My Tasks</h1>
+
+<%= link_to 'New Task', new_task_path, class: "btn btn-primary mb-3" %>
+
+<ul class="list-group">
+  <% @tasks.each do |task| %>
+    <li class="list-group-item">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+          <%= form_with url: task_path(task), method: :patch, class: 'd-inline' do %>
+            <%= check_box_tag 'completed', 'true', task.completed, class: "form-check-input", onchange: 'this.form.submit()' %>
+          <% end %>
+          <%= link_to task.title, task_path(task), class: "ml-2" %>
+        </div>
+        <div>
+          <%= link_to 'Edit', edit_task_path(task), class: "btn btn-secondary btn-sm" %>
+          <%= link_to 'Delete', task_path(task), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm ml-2" %>
+        </div>
+      </div>
+    </li>
+  <% end %>
+</ul>
